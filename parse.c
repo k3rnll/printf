@@ -10,12 +10,10 @@ void 	parse(t_pfdata *pfdata)
 		if (pfdata->format[pfdata->i] == '%')
 		{
 			pfdata->i++;
+			chk_flag(pfdata);
 			chk_conv(pfdata);
 			continue;
 		}
-
-//		write(1, &(pfdata->format[pfdata->i]), 1);
-
 		if (pfdata->format[pfdata->i] == '\0')
 			break;
 		ft_putchar(pfdata->format[pfdata->i++]);

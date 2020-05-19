@@ -2,7 +2,8 @@
 
 void 	init(t_pfdata *pfdata)
 {
-	pfdata->conversion = "%scpdu";
+	pfdata->conversion = "%scpdiouxX";
+//	pfdata->flags = "hl";
 	pfdata->len = 0;
 	pfdata->i = 0;
 }
