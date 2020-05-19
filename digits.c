@@ -13,7 +13,7 @@ void 	digits(t_pfdata *pfdata)
 		str = otoa(pfdata->x);
 //		str = otoa(va_arg(pfdata->args, int));
 	if (pfdata->format[pfdata->i] == 'u')
-		str = ft_utoa(pfdata->x);
+		str = ft_utoa(pfdata->x, pfdata);
 		//		str = ft_utoa(va_arg(pfdata->args, int));
 	if (pfdata->format[pfdata->i] == 'x' || pfdata->format[pfdata->i] == 'X')
 		str = utohex(pfdata->x, pfdata->format[pfdata->i], sizeof(pfdata->x));

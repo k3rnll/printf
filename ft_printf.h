@@ -26,7 +26,7 @@ void 		doflag(t_pfdata *pfdata);
 void 		reparse(t_pfdata *pfdata);
 void 		digits(t_pfdata *pfdata);
 char		*llitoa(long long int n);
-char		*ft_utoa(unsigned int u);
+char		*ft_utoa(unsigned long long u, t_pfdata *pfdata);
 char 		*utohex(unsigned long long n, char c, int len);
 char 		*otoa(unsigned int n);
 

@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-static int	ft_ulen(unsigned int u)
+static int	ft_ulen(unsigned long long u)
 {
 	int		len;
 
@@ -14,10 +14,16 @@ static int	ft_ulen(unsigned int u)
 	return (len);
 }
 
-char		*ft_utoa(unsigned int u)
+char		*ft_utoa(unsigned long long u, t_pfdata *pfdata)
 {
 	int			len;
 	char		*str;
+	signed long long	p;
+
+	p = (signed long long)u;
+
+	if (pfdata->flag[0] != 'l' && (u < 0 || u > 0xFFFFFFFF))
+		u = u - 0xFFFFFFFF00000000;
 
 	len = ft_ulen(u);
 	if (!(str = ft_strnew(len)))
