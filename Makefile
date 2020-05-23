@@ -1,5 +1,7 @@
-SRC = ft_printf.c ft_putptr.c parse.c init.c chk_conv.c reparse.c digits.c utoa.c utohex.c otoa.c chk_flag.c doflag.c llitoa.c
-OBJ = ft_printf.o
+SRC = ft_printf.c ft_putptr.c parse.c init.c chk_conv.c\
+	reparse.c digits.c utoa.c utohex.c otoa.c chk_mod.c\
+	domod.c llitoa.c chk_flag.c chk_prec.c
+OBJ = $(SRC:%.c = %.o)
 NAME = libftprintf.a
 
 all: $(NAME)
@@ -9,10 +11,10 @@ $(NAME):
 	ar rcs $(NAME) *.o
 
 clean:
-	rm -f $(OBJ)
+	rm -f *.o
 
 fclean:
-	rm -f $(OBJ) $(NAME)
+	rm -f *.o $(NAME)
 
 re:
 	make fclean all

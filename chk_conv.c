@@ -9,6 +9,7 @@ void 	chk_conv(t_pfdata *pfdata)
 	{
 		if (pfdata->format[pfdata->i] == pfdata->conversion[k])
 		{
+			chk_prec(pfdata);
 			reparse(pfdata);
 			digits(pfdata);
 		}

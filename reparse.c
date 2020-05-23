@@ -4,6 +4,7 @@ void 	reparse(t_pfdata *pfdata)
 {
 	char 	*str;
 
+	str = NULL;
 	if (pfdata->format[pfdata->i] == 'c')
 	{
 		ft_putchar((char)va_arg(pfdata->args, int));

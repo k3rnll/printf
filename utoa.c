@@ -22,7 +22,7 @@ char		*ft_utoa(unsigned long long u, t_pfdata *pfdata)
 
 	p = (signed long long)u;
 
-	if (pfdata->flag[0] != 'l' && (u < 0 || u > 0xFFFFFFFF))
+	if (pfdata->mod[0] != 'l' && (u < 0 || u > 0xFFFFFFFF))
 		u = u - 0xFFFFFFFF00000000;
 
 	len = ft_ulen(u);

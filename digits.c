@@ -5,7 +5,8 @@ void 	digits(t_pfdata *pfdata)
 	char 	*str;
 
 	str = NULL;
-	doflag(pfdata);
+	if (ft_strchr("diouxX", pfdata->format[pfdata->i]))
+		domod(pfdata);
 	if (pfdata->format[pfdata->i] == 'd' || pfdata->format[pfdata->i] == 'i')
 		str = llitoa(pfdata->x);
 //		str = ft_itoa(pfdata->x);
@@ -16,7 +17,7 @@ void 	digits(t_pfdata *pfdata)
 		str = ft_utoa(pfdata->x, pfdata);
 		//		str = ft_utoa(va_arg(pfdata->args, int));
 	if (pfdata->format[pfdata->i] == 'x' || pfdata->format[pfdata->i] == 'X')
-		str = utohex(pfdata->x, pfdata->format[pfdata->i], sizeof(pfdata->x));
+		str = utohex(pfdata->x, pfdata->format[pfdata->i], pfdata);
 //		str = utohex(va_arg(pfdata->args, int), pfdata->format[pfdata->i]);
 	if (str)
 	{

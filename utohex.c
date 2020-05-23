@@ -1,8 +1,9 @@
 #include "ft_printf.h"
 
-char 	*utohex(unsigned long long n, char c, int len)
+char 	*utohex(unsigned long long n, char c, t_pfdata *pfdata)
 {
 	char			*str;
+	char 			*tstr;
 	long long		p;
 	unsigned int	tmp;
 	int				i;
@@ -10,10 +11,7 @@ char 	*utohex(unsigned long long n, char c, int len)
 
 	i = 0;
 	k = 0;
-//	tmp = n;
-	str = ft_strnew(16);
-//	str[0] = '0';
-//	str[1] = 'x';
+	str = ft_strnew(18);
 	p = (signed long long)n;
 	if (p > -2147483649 && p < 2147483648)
 	{
@@ -37,6 +35,13 @@ char 	*utohex(unsigned long long n, char c, int len)
 		n = n << 4;
 		k++;
 		i++;
+	}
+	if (pfdata->alt == '#' && str[0] != '0')
+	{
+		tstr = str;
+		str = ft_strjoin("0x", str);
+		str[1] = c;
+		free(tstr);
 	}
 	return(str);
 }

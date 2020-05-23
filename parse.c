@@ -11,6 +11,7 @@ void 	parse(t_pfdata *pfdata)
 		{
 			pfdata->i++;
 			chk_flag(pfdata);
+			chk_mod(pfdata);
 			chk_conv(pfdata);
 			continue;
 		}

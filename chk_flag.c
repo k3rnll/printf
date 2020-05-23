@@ -1,15 +1,14 @@
 #include "ft_printf.h"
 
-void	chk_flag(t_pfdata *pfdata)
+void 	chk_flag(t_pfdata *pfdata)
 {
-	if (ft_strchr("hl", pfdata->format[pfdata->i]))
+	while (ft_strchr(pfdata->flags, pfdata->format[pfdata->i]))
 	{
-		pfdata->flag[0] = pfdata->format[pfdata->i];
+		pfdata->alt = (pfdata->format[pfdata->i] == '#') ? '#' : 0;
+		pfdata->align = (pfdata->format[pfdata->i] == '-') ? '-' : 0;
+		pfdata->zero = (pfdata->format[pfdata->i] == '0') ? 1 : 0;
+		pfdata->space = (pfdata->format[pfdata->i] == ' ') ? ' ' : 0;
+		pfdata->plus = (pfdata->format[pfdata->i] == '+') ? '+' : 0;
 		pfdata->i++;
-		if (pfdata->format[pfdata->i] == pfdata->flag[0])
-		{
-			pfdata->flag[1] = pfdata->flag[0];
-			pfdata->i++;
-		}
 	}
 }

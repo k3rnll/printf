@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-void 	doflag(t_pfdata *pfdata)
+void 	domod(t_pfdata *pfdata)
 {
 	if (pfdata->format[pfdata->i-1] == 'h')
 	{
