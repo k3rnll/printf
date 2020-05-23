@@ -28,7 +28,7 @@ void 		init(t_pfdata *pflist);
 void 		parse(t_pfdata *pflist);
 size_t		ft_putptr(void *ptr);
 void 		chk_flag(t_pfdata *pfdata);
-void 		chk_conv(t_pfdata *pfdata);
+int 		chk_conv(t_pfdata *pfdata);
 void		chk_mod(t_pfdata *pfdata);
 void		chk_prec(t_pfdata *pfdata);
 void 		domod(t_pfdata *pfdata);
