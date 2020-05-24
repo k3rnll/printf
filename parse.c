@@ -10,6 +10,7 @@ void 	parse(t_pfdata *pfdata)
 		if (pfdata->format[pfdata->i] == '%')
 		{
 			pfdata->i++;
+			reinit(pfdata);
 			chk_flag(pfdata);
 			chk_mod(pfdata);
 			chk_conv(pfdata);

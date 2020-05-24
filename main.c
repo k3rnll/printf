@@ -14,8 +14,9 @@ int		main(void) {
 //	k = NULL;
 	//i = 256;
 	str = "Hello World!";
+	ft_printf("%-5.10o\n", 2500);
+	printf("%-5.10o", 2500);
 
-	ft_printf("%#08x", 42);
 	//	printf("%llu", 4999999999);
 	return(0);
 }

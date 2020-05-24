@@ -12,6 +12,7 @@ typedef struct	s_pfdata
 	char 		*flags;
 	char 		mod[2];
 	int 		prec;
+	int 		dotprec;
 	char 		alt;
 	char 		align;
 	char 		zero;
@@ -25,6 +26,7 @@ typedef struct	s_pfdata
 
 int			ft_printf(char *format, ...);
 void 		init(t_pfdata *pflist);
+void 		reinit(t_pfdata *pfdata);
 void 		parse(t_pfdata *pflist);
 size_t		ft_putptr(void *ptr);
 void 		chk_flag(t_pfdata *pfdata);
@@ -34,9 +36,9 @@ void		chk_prec(t_pfdata *pfdata);
 void 		domod(t_pfdata *pfdata);
 void 		reparse(t_pfdata *pfdata);
 void 		digits(t_pfdata *pfdata);
-char		*llitoa(long long int n);
+char		*llitoa(long long int n, t_pfdata *pfdata);
 char		*ft_utoa(unsigned long long u, t_pfdata *pfdata);
 char 		*utohex(unsigned long long n, char c, t_pfdata *pfdata);
-char 		*otoa(unsigned int n);
+char 		*otoa(unsigned int n, t_pfdata *pfdata);
 
 #endif

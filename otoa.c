@@ -14,13 +14,13 @@ static int	ft_olen(unsigned int u)
 	return (len);
 }
 
-char 	*otoa(unsigned int n)
+char 	*otoa(unsigned int n, t_pfdata *pfdata)
 {
 	int			len;
 	char		*str;
 
 	len = ft_olen(n);
-	if (!(str = ft_strnew(len)))
+	if (!(str = ft_strnew(len + 1)))
 		return (NULL);
 	while (n / 8 != 0)
 	{
@@ -29,5 +29,7 @@ char 	*otoa(unsigned int n)
 		len--;
 	}
 	str[len - 1] = ((n % 8) + '0');
+	if (pfdata->alt)
+		str = ft_strjoin("0", str);
 	return(str);
 }

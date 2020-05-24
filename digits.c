@@ -9,10 +9,10 @@ void 	digits(t_pfdata *pfdata)
 	if (ft_strchr("diouxX", pfdata->format[pfdata->i]))
 		domod(pfdata);
 	if (pfdata->format[pfdata->i] == 'd' || pfdata->format[pfdata->i] == 'i')
-		str = llitoa(pfdata->x);
+		str = llitoa(pfdata->x, pfdata);
 //		str = ft_itoa(pfdata->x);
 	if (pfdata->format[pfdata->i] == 'o')
-		str = otoa(pfdata->x);
+		str = otoa(pfdata->x, pfdata);
 //		str = otoa(va_arg(pfdata->args, int));
 	if (pfdata->format[pfdata->i] == 'u')
 		str = ft_utoa(pfdata->x, pfdata);
@@ -37,21 +37,27 @@ void 	digits(t_pfdata *pfdata)
 		{
 			if (str[0] == '-' && pfdata->zero)
 				write(1, "-", 1);
-			if (str[0] != '-' && (pfdata->plus || pfdata->space) && pfdata->format[pfdata->i] != 'u')
+			if (str[0] != '-' && (pfdata->plus || pfdata->space) && pfdata->format[pfdata->i] != 'u' && !pfdata->dotprec)
 			{
 				pfdata->plus ? write(1, "+", 1) : write(1, " ", 1);
-					pfdata->len++;
+				pfdata->len++;
 				if(pfdata->zero)
 					pfdata->prec--;
 			}
-
+			if (pfdata->alt && pfdata->zero)
+				write(1, str, 2);
 			while (pfdata->prec)
 			{
 				(pfdata->zero == 1)? write(1, "0", 1) : write(1, " ", 1);
 				pfdata->len++;
 				pfdata->prec--;
 			}
-			 str[0] == '-' && pfdata->zero ? ft_putstr(&str[1]) : ft_putstr(str);
+			if (str[0] == '-' && pfdata->zero)
+				ft_putstr(&str[1]);
+			else if (pfdata->alt && pfdata->zero)
+				ft_putstr(&str[2]);
+			else
+				ft_putstr(str);
 		}
 		pfdata->i++;
 		pfdata->len += len;

@@ -10,13 +10,25 @@ void 	reparse(t_pfdata *pfdata)
 	{
 		len = 1;
 		pfdata->prec = (pfdata->prec > len) ? (pfdata->prec - len) : 0;
-		while (pfdata->prec)
+		if (pfdata->align == '-')
 		{
-			write(1, " ", 1);
-			pfdata->len++;
-			pfdata->prec--;
+			ft_putchar((char) va_arg(pfdata->args, int));
+			while (pfdata->prec)
+			{
+				write(1, " ", 1);
+				pfdata->len++;
+				pfdata->prec--;
+			}
 		}
-		ft_putchar((char)va_arg(pfdata->args, int));
+		else
+		{
+			while (pfdata->prec) {
+				write(1, " ", 1);
+				pfdata->len++;
+				pfdata->prec--;
+			}
+			ft_putchar((char) va_arg(pfdata->args, int));
+		}
 		pfdata->i++;
 		pfdata->len++;
 	}
@@ -25,16 +37,33 @@ void 	reparse(t_pfdata *pfdata)
 		if(!(str = va_arg(pfdata->args, char*)))
 			str = "(null)";
 		len = ft_strlen(str);
-		pfdata->prec = (pfdata->prec > len) ? (pfdata->prec - len) : 0;
-		while (pfdata->prec)
+		if (pfdata->dotprec > 0 && pfdata->dotprec < len)
 		{
-			write(1, " ", 1);
-			pfdata->len++;
-			pfdata->prec--;
+			str = ft_strsub(str, 0, pfdata->dotprec);
+			len = pfdata->dotprec;
 		}
-		ft_putstr(str);
+		pfdata->prec = (pfdata->prec > len) ? (pfdata->prec - len) : 0;
+		if (pfdata->align == '-')
+		{
+			ft_putstr(str);
+			while (pfdata->prec)
+			{
+				write(1, " ", 1);
+				pfdata->len++;
+				pfdata->prec--;
+			}
+		}
+		else
+		{
+			while (pfdata->prec) {
+				write(1, " ", 1);
+				pfdata->len++;
+				pfdata->prec--;
+			}
+			ft_putstr(str);
+		}
 		pfdata->i++;
-		pfdata->len = pfdata->len + ft_strlen(str);
+		pfdata->len = pfdata->len + len;
 	}
 	if (pfdata->format[pfdata->i] == 'p')
 	{
