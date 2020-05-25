@@ -9,6 +9,7 @@ void 	chk_flag(t_pfdata *pfdata)
 		pfdata->zero = (pfdata->format[pfdata->i] == '0') ? 1 : pfdata->zero;
 		pfdata->space = (pfdata->format[pfdata->i] == ' ') ? ' ' : pfdata->space;
 		pfdata->plus = (pfdata->format[pfdata->i] == '+') ? '+' : pfdata->plus;
+		pfdata->dot = (pfdata->format[pfdata->i] == '.') ? '.' : pfdata->dot;
 		pfdata->i++;
 	}
 }

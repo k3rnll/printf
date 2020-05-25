@@ -26,6 +26,10 @@ char 		*convert_d(char *str, t_pfdata *pfdata)
 	if (pfdata->dotprec > len)
 	{
 		tmp = ft_strnew(pfdata->dotprec - len);
+		if (pfdata->plus) {
+			tmp[i++] = '+';
+			len--;
+		}
 		while (i < pfdata->dotprec - len)
 			tmp[i++] = '0';
 		res = ft_strjoin(tmp, str);
@@ -57,6 +61,8 @@ char		*llitoa(long long int n, t_pfdata *pfdata)
 	}
 	if (!(str = ft_strnew(len)))
 		return (NULL);
+	if (pfdata->dot && !pfdata->dotprec && !n)
+		return (str);
 	while (tmp / 10 != 0)
 	{
 		if (tmp < 0)

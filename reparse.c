@@ -17,10 +17,10 @@ void 	reparse(t_pfdata *pfdata)
 	size_t	len;
 
 	str = NULL;
-	if (pfdata->format[pfdata->i] == 'c')
+	if (pfdata->format[pfdata->i] == 'c' || pfdata->format[pfdata->i] == '%')
 	{
 		len = 1;
-		c = (char)va_arg(pfdata->args, int);
+		c = pfdata->format[pfdata->i] == 'c' ? (char)va_arg(pfdata->args, int) : '%';
 		pfdata->prec = (pfdata->prec > len) ? (pfdata->prec - len) : 0;
 		pfdata->align == '-' ? ft_putchar(c) : fill_space(pfdata, ' ');
 		pfdata->align == '-' ? fill_space(pfdata, ' ') : ft_putchar(c);

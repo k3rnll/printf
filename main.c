@@ -14,7 +14,10 @@ int		main(void) {
 //	k = NULL;
 	//i = 256;
 	str = "Hello World!";
-//	ft_putnstr(str, 3);
+	ft_printf("@moulitest: %.5u\n", 42);
+	printf("@moulitest: %05u", 42);
+
+	//	ft_putnstr(str, 3);
 	//	ft_printf("%0+5d", 42);
 	//printf("%-5.10o", 2500);
 

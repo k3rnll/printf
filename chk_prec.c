@@ -9,6 +9,7 @@ void	chk_prec(t_pfdata *pfdata)
 			k--;
 		if (pfdata->format[k] == '.')
 		{
+			pfdata->dot = '.';
 			pfdata->dotprec = ft_atoi(&(pfdata->format[k + 1]));
 			k--;
 			while (ft_isdigit(pfdata->format[k]) && pfdata->format[k] != '%')

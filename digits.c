@@ -17,7 +17,7 @@ void 	disp_digit(char *str, t_pfdata *pfdata)
 			pfdata->prec = pfdata->zero ? pfdata->prec - 1 : pfdata->prec;
 		}
 		pfdata->alt && pfdata->zero ? ft_putnstr(str, 2) : 0;
-		pfdata->zero == 1 ? fill_space(pfdata, '0') : fill_space(pfdata, ' ');
+		pfdata->zero == 1 && !pfdata->dot ? fill_space(pfdata, '0') : fill_space(pfdata, ' ');
 		if (str[0] == '-' && pfdata->zero)
 			ft_putstr(&str[1]);
 		else if (pfdata->alt && pfdata->zero)

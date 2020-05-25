@@ -20,6 +20,7 @@ typedef struct	s_pfdata
 	char 		zero;
 	char 		space;
 	char 		plus;
+	char 		dot;
 	size_t 		i;
 	size_t		len;
 	long long 		x;

@@ -43,5 +43,7 @@ char 	*utohex(unsigned long long n, char c, t_pfdata *pfdata)
 		str[1] = c;
 		free(tstr);
 	}
+	if (pfdata->dot && p == 0)
+		str[0] = 0;
 	return(str);
 }

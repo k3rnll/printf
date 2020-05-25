@@ -4,7 +4,7 @@ void	ft_putnstr(char const *s, size_t n)
 {
 	if (s)
 	{
-		while (n)
+		while (*s && n)
 		{
 			write (1, &*s, 1);
 			n--;

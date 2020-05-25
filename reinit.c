@@ -11,4 +11,5 @@ void 	reinit(t_pfdata *pfdata)
 	pfdata->zero = 0;
 	pfdata->space = 0;
 	pfdata->plus = 0;
+	pfdata->dot = 0;
 }
