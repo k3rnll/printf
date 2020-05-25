@@ -11,8 +11,10 @@ typedef struct	s_pfdata
 	char 		*conversion;
 	char 		*flags;
 	char 		mod[2];
-	int 		prec;
-	int 		dotprec;
+	size_t 		prec;
+//	int 		prec;
+	size_t 		dotprec;
+//	int 		dotprec;
 	char 		alt;
 	char 		align;
 	char 		zero;
@@ -25,6 +27,8 @@ typedef struct	s_pfdata
 }				t_pfdata;
 
 int			ft_printf(char *format, ...);
+void		ft_putnstr(char const *s, size_t n);
+void 		fill_space(t_pfdata *pfdata, char c);
 void 		init(t_pfdata *pflist);
 void 		reinit(t_pfdata *pfdata);
 void 		parse(t_pfdata *pflist);

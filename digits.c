@@ -1,5 +1,32 @@
 #include "ft_printf.h"
 
+void 	disp_digit(char *str, t_pfdata *pfdata)
+{
+	if (pfdata->align == '-')
+	{
+		ft_putstr(str);
+		fill_space(pfdata, ' ');
+	}
+	else
+	{
+		str[0] == '-' && pfdata->zero ? ft_putchar('-') : 0;
+		if (str[0] != '-' && (pfdata->plus || pfdata->space) && pfdata->format[pfdata->i] != 'u' && !pfdata->dotprec)
+		{
+			pfdata->plus ? write(1, "+", 1) : write(1, " ", 1);
+			pfdata->len++;
+			pfdata->prec = pfdata->zero ? pfdata->prec - 1 : pfdata->prec;
+		}
+		pfdata->alt && pfdata->zero ? ft_putnstr(str, 2) : 0;
+		pfdata->zero == 1 ? fill_space(pfdata, '0') : fill_space(pfdata, ' ');
+		if (str[0] == '-' && pfdata->zero)
+			ft_putstr(&str[1]);
+		else if (pfdata->alt && pfdata->zero)
+			ft_putstr(&str[2]);
+		else
+			ft_putstr(str);
+	}
+}
+
 void 	digits(t_pfdata *pfdata)
 {
 	char 	*str;
@@ -10,55 +37,16 @@ void 	digits(t_pfdata *pfdata)
 		domod(pfdata);
 	if (pfdata->format[pfdata->i] == 'd' || pfdata->format[pfdata->i] == 'i')
 		str = llitoa(pfdata->x, pfdata);
-//		str = ft_itoa(pfdata->x);
 	if (pfdata->format[pfdata->i] == 'o')
 		str = otoa(pfdata->x, pfdata);
-//		str = otoa(va_arg(pfdata->args, int));
 	if (pfdata->format[pfdata->i] == 'u')
 		str = ft_utoa(pfdata->x, pfdata);
-		//		str = ft_utoa(va_arg(pfdata->args, int));
 	if (pfdata->format[pfdata->i] == 'x' || pfdata->format[pfdata->i] == 'X')
 		str = utohex(pfdata->x, pfdata->format[pfdata->i], pfdata);
-//		str = utohex(va_arg(pfdata->args, int), pfdata->format[pfdata->i]);
 	if (str) {
 		len = ft_strlen(str);
 		pfdata->prec = (pfdata->prec > len) ? (pfdata->prec - len) : 0;
-		if (pfdata->align == '-')
-		{
-			ft_putstr(str);
-			while (pfdata->prec)
-			{
-				write(1, " ", 1);
-				pfdata->len++;
-				pfdata->prec--;
-			}
-		}
-		else
-		{
-			if (str[0] == '-' && pfdata->zero)
-				write(1, "-", 1);
-			if (str[0] != '-' && (pfdata->plus || pfdata->space) && pfdata->format[pfdata->i] != 'u' && !pfdata->dotprec)
-			{
-				pfdata->plus ? write(1, "+", 1) : write(1, " ", 1);
-				pfdata->len++;
-				if(pfdata->zero)
-					pfdata->prec--;
-			}
-			if (pfdata->alt && pfdata->zero)
-				write(1, str, 2);
-			while (pfdata->prec)
-			{
-				(pfdata->zero == 1)? write(1, "0", 1) : write(1, " ", 1);
-				pfdata->len++;
-				pfdata->prec--;
-			}
-			if (str[0] == '-' && pfdata->zero)
-				ft_putstr(&str[1]);
-			else if (pfdata->alt && pfdata->zero)
-				ft_putstr(&str[2]);
-			else
-				ft_putstr(str);
-		}
+		disp_digit(str, pfdata);
 		pfdata->i++;
 		pfdata->len += len;
 		free(str);

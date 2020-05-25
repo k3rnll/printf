@@ -1,34 +1,29 @@
 #include "ft_printf.h"
 
+void 	fill_space(t_pfdata *pfdata, char c)
+{
+	while (pfdata->prec)
+	{
+		ft_putchar(c);
+		pfdata->len++;
+		pfdata->prec--;
+	}
+}
+
 void 	reparse(t_pfdata *pfdata)
 {
 	char 	*str;
+	char 	c;
 	size_t	len;
 
 	str = NULL;
 	if (pfdata->format[pfdata->i] == 'c')
 	{
 		len = 1;
+		c = (char)va_arg(pfdata->args, int);
 		pfdata->prec = (pfdata->prec > len) ? (pfdata->prec - len) : 0;
-		if (pfdata->align == '-')
-		{
-			ft_putchar((char) va_arg(pfdata->args, int));
-			while (pfdata->prec)
-			{
-				write(1, " ", 1);
-				pfdata->len++;
-				pfdata->prec--;
-			}
-		}
-		else
-		{
-			while (pfdata->prec) {
-				write(1, " ", 1);
-				pfdata->len++;
-				pfdata->prec--;
-			}
-			ft_putchar((char) va_arg(pfdata->args, int));
-		}
+		pfdata->align == '-' ? ft_putchar(c) : fill_space(pfdata, ' ');
+		pfdata->align == '-' ? fill_space(pfdata, ' ') : ft_putchar(c);
 		pfdata->i++;
 		pfdata->len++;
 	}
@@ -37,33 +32,12 @@ void 	reparse(t_pfdata *pfdata)
 		if(!(str = va_arg(pfdata->args, char*)))
 			str = "(null)";
 		len = ft_strlen(str);
-		if (pfdata->dotprec > 0 && pfdata->dotprec < len)
-		{
-			str = ft_strsub(str, 0, pfdata->dotprec);
-			len = pfdata->dotprec;
-		}
+		len = (pfdata->dotprec > 0 && pfdata->dotprec < len) ? pfdata->dotprec : len;
 		pfdata->prec = (pfdata->prec > len) ? (pfdata->prec - len) : 0;
-		if (pfdata->align == '-')
-		{
-			ft_putstr(str);
-			while (pfdata->prec)
-			{
-				write(1, " ", 1);
-				pfdata->len++;
-				pfdata->prec--;
-			}
-		}
-		else
-		{
-			while (pfdata->prec) {
-				write(1, " ", 1);
-				pfdata->len++;
-				pfdata->prec--;
-			}
-			ft_putstr(str);
-		}
+		pfdata->align == '-' ? ft_putnstr(str, len) : fill_space(pfdata, ' ');
+		pfdata->align == '-' ? fill_space(pfdata, ' ') : ft_putnstr(str, len);
 		pfdata->i++;
-		pfdata->len = pfdata->len + len;
+		pfdata->len += len;
 	}
 	if (pfdata->format[pfdata->i] == 'p')
 	{
