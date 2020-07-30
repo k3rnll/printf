@@ -2,14 +2,13 @@
 
 void 	parse(t_pfdata *pfdata)
 {
-	int 	k;
-
-	k = 0;
 	while (pfdata->format[pfdata->i] != '\0')
 	{
 		if (pfdata->format[pfdata->i] == '%')
 		{
 			pfdata->i++;
+			if (!pfdata->format[pfdata->i])
+				break;
 			reinit(pfdata);
 			chk_flag(pfdata);
 			chk_mod(pfdata);

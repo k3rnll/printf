@@ -23,6 +23,8 @@ char 		*convert_u(char *str, t_pfdata *pfdata)
 
 	i = 0;
 	len = ft_strlen(str);
+	if (len == 1 && pfdata->dot)
+		str[0] = '\0';
 	if (pfdata->dotprec > len)
 	{
 		tmp = ft_strnew(pfdata->dotprec - len);
@@ -44,9 +46,10 @@ char		*ft_utoa(unsigned long long u, t_pfdata *pfdata)
 
 	p = (signed long long)u;
 
-	if (pfdata->mod[0] != 'l' && (u < 0 || u > 0xFFFFFFFF))
-		u = u - 0xFFFFFFFF00000000;
-
+	if (pfdata->mod[0] != 'l' && (u < 0 || u > 0xFFFFFFFF)) {
+		u = pfdata->mod[0] == 'h' ? (u - 0xFFFFFFFFFFFF0000) : (u - 0xFFFFFFFF00000000);
+		u = pfdata->mod[1] == 'h' ? (u - 0xFF00) : u;
+	}
 	len = ft_ulen(u);
 	if (!(str = ft_strnew(len)))
 		return (NULL);

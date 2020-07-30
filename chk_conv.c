@@ -18,6 +18,7 @@ int 	chk_conv(t_pfdata *pfdata)
 		}
 		if (pfdata->format[pfdata->i] == '\0')
 			break;
+//		ft_putchar(pfdata->format[pfdata->i]);
 		pfdata->i++;
 	}
 }

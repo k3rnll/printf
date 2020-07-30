@@ -10,6 +10,7 @@ void 	chk_flag(t_pfdata *pfdata)
 		pfdata->space = (pfdata->format[pfdata->i] == ' ') ? ' ' : pfdata->space;
 		pfdata->plus = (pfdata->format[pfdata->i] == '+') ? '+' : pfdata->plus;
 		pfdata->dot = (pfdata->format[pfdata->i] == '.') ? '.' : pfdata->dot;
+//		pfdata->prec = (pfdata->format[pfdata->i] == '*') ? va_arg(pfdata->args, int) : 0;
 		pfdata->i++;
 	}
 }

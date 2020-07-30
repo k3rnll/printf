@@ -2,7 +2,7 @@
 
 void 	fill_space(t_pfdata *pfdata, char c)
 {
-	while (pfdata->prec)
+	while (pfdata->prec > 0)
 	{
 		ft_putchar(c);
 		pfdata->len++;
@@ -32,7 +32,7 @@ void 	reparse(t_pfdata *pfdata)
 		if(!(str = va_arg(pfdata->args, char*)))
 			str = "(null)";
 		len = ft_strlen(str);
-		len = (pfdata->dotprec > 0 && pfdata->dotprec < len) ? pfdata->dotprec : len;
+		len = (pfdata->dot && pfdata->dotprec < len) ? pfdata->dotprec : len;
 		pfdata->prec = (pfdata->prec > len) ? (pfdata->prec - len) : 0;
 		pfdata->align == '-' ? ft_putnstr(str, len) : fill_space(pfdata, ' ');
 		pfdata->align == '-' ? fill_space(pfdata, ' ') : ft_putnstr(str, len);
@@ -41,8 +41,18 @@ void 	reparse(t_pfdata *pfdata)
 	}
 	if (pfdata->format[pfdata->i] == 'p')
 	{
-		pfdata->len = pfdata->len + (ft_putptr(va_arg(pfdata->args, int*)));
+		str = ft_ptoa(va_arg(pfdata->args, int*), pfdata);
+		len = ft_strlen(str);
+		len = (pfdata->dot && pfdata->dotprec < 1) ? 2 : len;
+		pfdata->prec = (pfdata->prec > len) ? (pfdata->prec - len) : 0;
+		pfdata->align == '-' ? ft_putnstr(str, len) : fill_space(pfdata, ' ');
+		pfdata->align == '-' ? fill_space(pfdata, ' ') : ft_putnstr(str, len);
+//		pfdata->prec = (pfdata->prec > len) ? (pfdata->prec - len) : 0;
+//		disp_digit(str, pfdata);
 		pfdata->i++;
+		pfdata->len += len;
+		free(str);
 	}
+
 }
 
