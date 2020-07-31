@@ -39,6 +39,10 @@ void 	digits(t_pfdata *pfdata)
 	str = NULL;
 	if (ft_strchr("diouxX", pfdata->format[pfdata->i]))
 		domod(pfdata);
+	if (pfdata->format[pfdata->i] == 'f' && pfdata->format[pfdata->i-1] != 'L')
+		str = ftoa(va_arg(pfdata->args, double), pfdata);
+	if (pfdata->format[pfdata->i] == 'f' && pfdata->format[pfdata->i-1] == 'L')
+		str = ftoa(va_arg(pfdata->args, long double), pfdata);
 	if (pfdata->format[pfdata->i] == 'd' || pfdata->format[pfdata->i] == 'i')
 		str = llitoa(pfdata->x, pfdata);
 	if (pfdata->format[pfdata->i] == 'o')

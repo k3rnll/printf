@@ -19,3 +19,4 @@ void 	domod(t_pfdata *pfdata)
 	else
 		pfdata->x = va_arg(pfdata->args, int);
 }
+

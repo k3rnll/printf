@@ -46,5 +46,6 @@ char		*llitoa(long long int n, t_pfdata *pfdata);
 char		*ft_utoa(unsigned long long u, t_pfdata *pfdata);
 char 		*utohex(unsigned long long n, char c, t_pfdata *pfdata);
 char 		*otoa(unsigned long long int n, t_pfdata *pfdata);
+char		*ftoa(long double f, t_pfdata *pfdata);
 
 #endif
