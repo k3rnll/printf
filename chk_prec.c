@@ -42,7 +42,8 @@ void	chk_prec(t_pfdata *pfdata)
 			k--;
 			while (ft_isdigit(pfdata->format[k]) && pfdata->format[k] != '%')
 				k--;
-			pfdata->prec = ft_atoi(&(pfdata->format[k + 1]));
+			if (ft_isdigit(pfdata->format[k + 1]))
+				pfdata->prec = ft_atoi(&(pfdata->format[k + 1]));
 			if (!pfdata->zero)
 				pfdata->zero = pfdata->prec ? 0 : 1;
 		}

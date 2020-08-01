@@ -33,7 +33,7 @@ char 		*convert_o(char *str, t_pfdata *pfdata)
 		free(tmp);
 		return (res);
 	}
-	if (pfdata->dot && !pfdata->alt && str[0] == '0') {
+	if (pfdata->dot && !pfdata->dotprec && !pfdata->alt && str[0] == '0') {
 		pfdata->zero = 0;
 		str[0] = 0;
 	}

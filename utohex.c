@@ -9,7 +9,7 @@ char 	*utohex(unsigned long long n, char c, t_pfdata *pfdata)
 	unsigned int	tmp;
 	int				i;
 	int 			k;
-	size_t			len;
+	int			len;
 
 	i = 0;
 	k = 0;
@@ -51,7 +51,7 @@ char 	*utohex(unsigned long long n, char c, t_pfdata *pfdata)
 		k++;
 		i++;
 	}
-	if (pfdata->dot && p == 0)
+	if (pfdata->dot && !pfdata->dotprec && p == 0)
 		str[0] = 0;
 	len = ft_strlen(str);
 	if (pfdata->dotprec > len)

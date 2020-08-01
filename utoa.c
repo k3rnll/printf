@@ -23,7 +23,7 @@ char 		*convert_u(char *str, t_pfdata *pfdata)
 
 	i = 0;
 	len = ft_strlen(str);
-	if (len == 1 && pfdata->dot)
+	if (len == 1 && !pfdata->dotprec && pfdata->dot)
 		str[0] = '\0';
 	if (pfdata->dotprec > len)
 	{

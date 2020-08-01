@@ -21,4 +21,5 @@ int 	chk_conv(t_pfdata *pfdata)
 //		ft_putchar(pfdata->format[pfdata->i]);
 		pfdata->i++;
 	}
+	return(0);
 }

@@ -9,21 +9,20 @@ void 	disp_digit(char *str, t_pfdata *pfdata)
 	}
 	else
 	{
-		str[0] == '-' && pfdata->zero ? ft_putchar('-') : 0;
-		if (str[0] != '-' && (pfdata->plus || pfdata->space) && pfdata->format[pfdata->i] != 'u' && !pfdata->dotprec)
-		{
-			pfdata->plus ? write(1, "+", 1) : write(1, " ", 1);
-			pfdata->len++;
-			pfdata->prec = pfdata->zero && pfdata->prec > 0 ? pfdata->prec - 1 : pfdata->prec;
-		}
+//		str[0] == '-' && pfdata->zero ? ft_putchar('-') : 0;
+//		if (str[0] != '-' && (pfdata->plus || pfdata->space) && pfdata->format[pfdata->i] != 'u' && !pfdata->dotprec)
+//		{
+//			pfdata->plus ? write(1, "+", 1) : write(1, " ", 1);
+//			pfdata->len++;
+//			pfdata->prec = pfdata->zero && pfdata->prec > 0 ? pfdata->prec - 1 : pfdata->prec;
+//		}
 		pfdata->alt && pfdata->zero ? ft_putnstr(str, 2) : 0;
 //		pfdata->alt && pfdata->zero && !pfdata->dot ? ft_putnstr(str, 2) : 0;
 
 		pfdata->zero && pfdata->dotprec < 1 ? fill_space(pfdata, '0') : fill_space(pfdata, ' ');
-//		pfdata->zero ? fill_space(pfdata, '0') : fill_space(pfdata, ' ');
 
 		if (str[0] == '-' && pfdata->zero)
-			ft_putstr(&str[1]);
+			ft_putstr(&str[0]);
 		else if (pfdata->alt && pfdata->zero)
 			ft_putstr(&str[2]);
 		else

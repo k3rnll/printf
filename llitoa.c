@@ -18,16 +18,17 @@ char 		*convert_d(char *str, t_pfdata *pfdata)
 {
 	char 	*tmp;
 	char 	*res;
-	int 	len;
+	size_t 	len;
 	int 	i;
 
 	i = 0;
-	len = str[0] == '-' ? ft_strlen(str) - 1 : ft_strlen(str);
-	if (pfdata->dotprec > len)
+	len = *str == '-' ? ft_strlen(str) - 1 : ft_strlen(str);
+	if (pfdata->dotprec > 0 && pfdata->dotprec > len)
 	{
+//		len = str[0] == '-' ? len - 1 : len;
 		tmp = ft_strnew(pfdata->dotprec - len);
-		if (pfdata->plus) {
-			tmp[i++] = '+';
+		if (pfdata->plus || pfdata->space){
+			tmp[i++] = pfdata->plus ? '+' : ' ';
 			len--;
 		}
 		while (i < pfdata->dotprec - len)
@@ -40,6 +41,31 @@ char 		*convert_d(char *str, t_pfdata *pfdata)
 		}
 		free(str);
 		free(tmp);
+		return (res);
+	}
+	if (pfdata->zero && !pfdata->dotprec && !pfdata->align && pfdata->prec > len)
+	{
+		len = *str == '-' ? len + 1 : len;
+		tmp = ft_strnew(pfdata->prec - len);
+		if (pfdata->plus || pfdata->space)
+			tmp[i++] = pfdata->plus ? '+' : ' ';
+//		if (*str == '-')
+//			tmp[i++] = '-';
+		while (i < pfdata->prec - len)
+			tmp[i++] = '0';
+		res = ft_strjoin(tmp, str);
+		if (res[i] == '-' && pfdata->prec - len)
+		{
+			res[0] = '-';
+			res[i] = '0';
+		}
+		free(str);
+		free(tmp);
+		return (res);
+	}
+	if ((pfdata->plus || pfdata->space) && *str != '-') {
+		res = pfdata->plus ? ft_strjoin("+", str) : ft_strjoin(" ", str);
+		free(str);
 		return (res);
 	}
 	return (str);
