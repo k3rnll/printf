@@ -4,8 +4,8 @@
 
 int		main(void)
 {
-	printf("{%.*s}\n", -5, "42");
-	ft_printf("{%.*s}\n", -5, "42");
+	printf("%5c\n", 42);
+	ft_printf("%5c", 42);
 	return(0);
 }
 //
