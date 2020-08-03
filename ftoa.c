@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ftoa.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarkita <tmarkita@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/03 22:18:30 by k3                #+#    #+#             */
+/*   Updated: 2020/08/03 22:18:30 by k3               ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-char 	*zerostr(size_t i)
+char	*zerostr(size_t i)
 {
-	char 	*str;
+	char	*str;
 
 	str = ft_strnew(i);
 	while (i)
@@ -10,46 +22,55 @@ char 	*zerostr(size_t i)
 		i--;
 		str[i] = '0';
 	}
-	return(str);
+	return (str);
 }
 
-char 	*ftoa(long double f, t_pfdata *pfdata)
+char	*ftostr(long double f, t_pfdata *pfdata)
 {
 	char	*str;
-	char 	*str1;
-	char 	*str2;
-	char 	*res;
-	int 	i;
-	long double 	k;
-	int 	dotprec;
+	char	*new;
+
+	str = llitoa(f, pfdata);
+	new = ft_strjoin(str, ".");
+	free(str);
+	return (new);
+}
+
+char	*fstradd(char *str1, char *str2)
+{
+	char	*res;
+
+	res = ft_strjoin(str1, str2);
+	free(str1);
+	free(str2);
+	return (res);
+}
+
+char	*ftoa(long double f, t_pfdata *pfdata)
+{
+	char		*str1;
+	char		*str2;
+	int			i;
+	long double	k;
+	int			dotprec;
 
 	dotprec = pfdata->dotprec ? pfdata->dotprec : 6;
 	pfdata->dotprec = 0;
-	str = llitoa(f, pfdata);
-	str1 = ft_strjoin(str, ".");
-	free(str);
+	str1 = ftostr(f, pfdata);
 	f = f < 0 ? -f : f;
 	while (f > 1 && f > 0)
 		f = f - (long int)f;
 	i = 0;
-	while (i < 18 && i < dotprec) {
+	while (i < 18 && i < dotprec)
+	{
 		f = f * 10;
 		i++;
 	}
-//	str2 = llitoa(f, pfdata);
-	k = f - (long int) f;
+	k = f - (long int)f;
 	if ((long int)(k * 10) > 4)
 		f = f + 1;
 	str2 = llitoa(f, pfdata);
-	if (i < dotprec) {
-		str = str2;
-		str2 = ft_strjoin(str, zerostr(dotprec - i));
-		free(str);
-	}
-	res = ft_strjoin(str1, str2);
-//	pfdata->dotprec = 40;
-	free (str1);
-	free (str2);
-	return(res);
+	if (i < dotprec)
+		str2 = fstradd(str2, zerostr(dotprec - i));
+	return (fstradd(str1, str2));
 }
-

@@ -6,7 +6,7 @@
 /*   By: tmarkita <tmarkita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 20:50:43 by k3                #+#    #+#             */
-/*   Updated: 2020/08/03 21:10:08 by k3               ###   ########.fr       */
+/*   Updated: 2020/08/03 21:11:03 by k3               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	disp_str(char *str, t_pfdata *pfdata)
 void	digits(t_pfdata *pfdata)
 {
 	char	*str;
-	int		len;
 	char	c;
 
 	str = NULL;

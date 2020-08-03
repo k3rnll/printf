@@ -6,7 +6,7 @@
 /*   By: tmarkita <tmarkita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 18:52:15 by k3                #+#    #+#             */
-/*   Updated: 2020/08/03 20:11:02 by k3               ###   ########.fr       */
+/*   Updated: 2020/08/03 20:11:16 by k3               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	fill_space(t_pfdata *pfdata, char c)
 
 void	p_char(t_pfdata *pfdata)
 {
-	char	*str;
-	char	t;
-	char	c;
+	const char	*str;
+	char		t;
+	char		c;
 
 	str = &(pfdata->format[pfdata->i]);
 	t = pfdata->zero && !pfdata->align ? '0' : ' ';
