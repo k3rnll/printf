@@ -4,11 +4,8 @@
 
 int		main(void)
 {
-	char 	*str;
-
-	str = "hello";
-	printf("%.*p\n", -3, str);
-	ft_printf("%.*p", -3, str);
+	printf("{%.*s}\n", -5, "42");
+	ft_printf("{%.*s}\n", -5, "42");
 	return(0);
 }
 //

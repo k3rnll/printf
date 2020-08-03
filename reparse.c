@@ -15,7 +15,7 @@ void 	reparse(t_pfdata *pfdata)
 	char 	*str;
 	char 	c;
 	char 	t;
-	size_t	len;
+	int		len;
 
 	str = NULL;
 	if (pfdata->format[pfdata->i] == 'c' || pfdata->format[pfdata->i] == '%')
@@ -40,7 +40,7 @@ void 	reparse(t_pfdata *pfdata)
 			str = "(null)";
 		len = ft_strlen(str);
 		pfdata->prec = pfdata->prec < 0 ? -pfdata->prec : pfdata->prec;
-		len = (pfdata->dot && pfdata->dotprec < len) ? pfdata->dotprec : len;
+		len = (pfdata->dot && pfdata->dotprec < len && pfdata->dotprec >= 0) ? pfdata->dotprec : len;
 		pfdata->prec = (pfdata->prec > len) ? (pfdata->prec - len) : 0;
 		pfdata->align == '-' ? ft_putnstr(str, len) : fill_space(pfdata, ' ');
 		pfdata->align == '-' ? fill_space(pfdata, ' ') : ft_putnstr(str, len);

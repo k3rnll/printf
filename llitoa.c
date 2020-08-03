@@ -18,7 +18,7 @@ char 		*convert_d(char *str, t_pfdata *pfdata)
 {
 	char 	*tmp;
 	char 	*res;
-	size_t 	len;
+	int 	len;
 	int 	i;
 
 	i = 0;
@@ -76,15 +76,11 @@ char		*llitoa(long long int n, t_pfdata *pfdata)
 	long long	tmp;
 	int			len;
 	char		*str;
-	char 		*tstr;
 
 	tmp = n;
 	len = ft_numlen(n);
 	if (n < 0)
-	{
-//		tmp = (unsigned long long) tmp;
 		len++;
-	}
 	if (!(str = ft_strnew(len)))
 		return (NULL);
 	if (pfdata->dot && !pfdata->dotprec && !n)

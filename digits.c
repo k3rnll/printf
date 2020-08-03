@@ -33,7 +33,7 @@ void 	disp_digit(char *str, t_pfdata *pfdata)
 void 	digits(t_pfdata *pfdata)
 {
 	char 	*str;
-	size_t	len;
+	int 	len;
 
 	str = NULL;
 	if (ft_strchr("diouxX", pfdata->format[pfdata->i]))
