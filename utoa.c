@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utoa.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: clouise <clouise@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/03 22:12:26 by clouise           #+#    #+#             */
+/*   Updated: 2020/08/03 22:21:17 by clouise          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static int	ft_ulen(unsigned long long u)
+static int				ft_ulen(unsigned long long u)
 {
-	int		len;
+	int					len;
 
 	len = 0;
 	while (u / 10 != 0)
@@ -14,12 +26,12 @@ static int	ft_ulen(unsigned long long u)
 	return (len);
 }
 
-char 		*convert_u(char *str, t_pfdata *pfdata)
+char					*convert_u(char *str, t_pfdata *pfdata)
 {
-	char 	*tmp;
-	char 	*res;
-	int 	len;
-	int 	i;
+	char				*tmp;
+	char				*res;
+	int					len;
+	int					i;
 
 	i = 0;
 	len = ft_strlen(str);
@@ -38,16 +50,17 @@ char 		*convert_u(char *str, t_pfdata *pfdata)
 	return (str);
 }
 
-char		*ft_utoa(unsigned long long u, t_pfdata *pfdata)
+char					*ft_utoa(unsigned long long u, t_pfdata *pfdata)
 {
-	int			len;
-	char		*str;
+	int					len;
+	char				*str;
 	signed long long	p;
 
 	p = (signed long long)u;
-
-	if (pfdata->mod[0] != 'l' && (u < 0 || u > 0xFFFFFFFF)) {
-		u = pfdata->mod[0] == 'h' ? (u - 0xFFFFFFFFFFFF0000) : (u - 0xFFFFFFFF00000000);
+	if (pfdata->mod[0] != 'l' && (u < 0 || u > 0xFFFFFFFF))
+	{
+		u = pfdata->mod[0] == 'h' ? (u - 0xFFFFFFFFFFFF0000)
+				: (u - 0xFFFFFFFF00000000);
 		u = pfdata->mod[1] == 'h' ? (u - 0xFF00) : u;
 	}
 	len = ft_ulen(u);
