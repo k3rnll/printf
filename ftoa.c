@@ -19,7 +19,6 @@ char 	*ftoa(long double f, t_pfdata *pfdata)
 	char 	*str1;
 	char 	*str2;
 	char 	*res;
-	int 	l;
 	int 	i;
 	long double 	k;
 	int 	dotprec;

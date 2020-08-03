@@ -1,47 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utohex.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarkita <tmarkita@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/03 16:55:46 by k3                #+#    #+#             */
+/*   Updated: 2020/08/03 18:40:39 by k3               ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-char 	*utohex(unsigned long long n, char c, t_pfdata *pfdata)
+void	fill_z(char *str, int len, t_pfdata *pfdata)
+{
+	int			i;
+
+	i = 0;
+	while (i < pfdata->dotprec - len)
+		str[i++] = '0';
+}
+
+char	*conv_hex(char *str, char c, t_pfdata *pfdata)
+{
+	char		*tstr;
+	char		*res;
+	int			len;
+
+	len = ft_strlen(str);
+	res = str;
+	if (pfdata->dotprec > len)
+	{
+		pfdata->dotprec = pfdata->alt ? pfdata->dotprec + 2 : pfdata->dotprec;
+		tstr = ft_strnew(pfdata->dotprec - len);
+		fill_z(tstr, len, pfdata);
+		res = ft_strjoin(tstr, str);
+		res[1] = pfdata->alt ? c : res[1];
+		free(str);
+		free(tstr);
+	}
+	else if (pfdata->alt == '#' && str[0] != '0' && str[0])
+	{
+		res = ft_strjoin("0x", str);
+		res[1] = c;
+		free(str);
+	}
+	return (res);
+}
+
+int		move_hex(unsigned long long *n, long long *p, t_pfdata *pfdata)
+{
+	int		i;
+
+	i = 0;
+	if (*p > -2147483649 && *p < 2147483648)
+	{
+		*n = pfdata->mod[0] == 'h' ? *n << 48 : *n;
+		*n = !pfdata->mod[0] ? *n << 32 : *n;
+		i = pfdata->mod[0] == 'h' ? 12 : 8;
+		i = pfdata->mod[0] == 'l' ? 0 : i;
+		*n = pfdata->mod[1] == 'h' ? *n << 8 : *n;
+		i = pfdata->mod[1] == 'h' ? 14 : i;
+	}
+	while (!(*n & 0xF000000000000000) && i < 15)
+	{
+		*n = *n << 4;
+		i++;
+	}
+	return (i);
+}
+
+char	*utohex(unsigned long long n, char c, t_pfdata *pfdata)
 {
 	char			*str;
-	char 			*tstr;
-	char 			*res;
 	long long		p;
 	unsigned int	tmp;
 	int				i;
-	int 			k;
-	int			len;
+	int				k;
 
-	i = 0;
 	k = 0;
 	str = ft_strnew(18);
 	p = (signed long long)n;
-	if (p > -2147483649 && p < 2147483648) {
-		n = pfdata->mod[0] == 'h' ? n << 48 : n;
-		n = !pfdata->mod[0] ? n << 32 : n;
-		i = pfdata->mod[0] == 'h' ? 12 : 8;
-		i = pfdata->mod[0] == 'l' ? 0 : i;
-		n = pfdata->mod[1] == 'h' ? n << 8 : n;
-		i = pfdata->mod[1] == 'h' ? 14 : i;
-
-
-
-
-//		if (pfdata->mod[0] == 'h' ) {
-//			n = n << 56;
-//			i = 14;
-//		} else {
-//		n = n << 32;
-//		i = 8;
-//	}
-	}
-	while (!(n & 0xF000000000000000) && i < 15)
-	{
-		n = n << 4;
-		i++;
-	}
+	i = move_hex(&n, &p, pfdata);
 	while (i < 16)
 	{
-//		tmp = n & 0xF0000000;
 		tmp = n >> 60;
 		if (tmp < 10)
 			str[k] = (char)(tmp + 48);
@@ -53,27 +95,5 @@ char 	*utohex(unsigned long long n, char c, t_pfdata *pfdata)
 	}
 	if (pfdata->dot && !pfdata->dotprec && p == 0)
 		str[0] = 0;
-	len = ft_strlen(str);
-	if (pfdata->dotprec > len)
-	{
-		i = 0;
-		pfdata->dotprec = pfdata->alt ? pfdata->dotprec + 2 : pfdata->dotprec;
-		tstr = ft_strnew(pfdata->dotprec - len);
-		while (i < pfdata->dotprec - len)
-			tstr[i++] = '0';
-		res = ft_strjoin(tstr, str);
-		res[1] = pfdata->alt ? c : res[1];
-		free(str);
-		free(tstr);
-		return (res);
-	}
-//		if (pfdata->alt == '#' && str[0] != '0')
-	if (pfdata->alt == '#' && str[0] != '0' && str[0])
-	{
-		tstr = str;
-		str = ft_strjoin("0x", str);
-		str[1] = c;
-		free(tstr);
-	}
-	return(str);
+	return (conv_hex(str, c, pfdata));
 }
